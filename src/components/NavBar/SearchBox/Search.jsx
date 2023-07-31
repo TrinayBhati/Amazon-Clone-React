@@ -63,10 +63,11 @@ const Search = () => {
             {element
               .filter((product) => product.title.toLowerCase().includes(type))
               .map((product) => (
-                <ListItem key={product.id}>
-                  <div onClick={() => onClickChange(product)}>
-                      {product.title}
-                  </div>
+                <ListItem
+                  key={product.id}
+                  onClick={() => onClickChange(product)}
+                >
+                  <div>{product.title}</div>
                 </ListItem>
               ))}
           </List>
