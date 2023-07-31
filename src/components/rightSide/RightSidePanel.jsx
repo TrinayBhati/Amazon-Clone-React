@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Product from "./Product";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../CartContext";
-import Loader from "../Loader/Loader";
+import Loader from "../loader/Loader";
 
 const RightSidePanel = () => {
   const { result, searchFilter } = useContext(CartContext);
