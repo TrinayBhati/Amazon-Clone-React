@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Product from "../rightSide/Product";
 import { CartContext } from "../../CartContext";
-import Loader from "../Loader/Loader";
+import Loader from "../loader/Loader";
 
 const PlaceOrder = () => {
   const { item, size, increment } = useContext(CartContext);
