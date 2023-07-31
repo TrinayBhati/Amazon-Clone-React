@@ -1,0 +1,67 @@
+.advertisementOne_main{
+   height: 55vh;
+   width: 22.5vw;
+   background-color: white;
+   margin: 1%;
+   display: grid;
+   grid-template-columns: auto;
+   cursor: pointer;
+}
+.advertisementOne_header{
+    font-size: 21px;
+    line-height: 27px;
+    font-weight: bold;
+    padding: 15px;
+}
+.advertisementOne_body{
+    padding: 15px;
+}
+.advertisementOne_footer{
+    padding: 15px;
+}
+
+  
+  /* For screens with a width of 768 pixels or less (mobile devices) */
+  @media (max-width: 768px) {
+    .advertisementOne_main {
+      height: auto;
+      width: 100%;
+      margin: 5px 0;
+      grid-template-columns: 1fr;
+    }
+  
+    .advertisementOne_header {
+      font-size: 18px;
+    }
+  
+    .advertisementOne_body {
+      padding: 10px;
+    }
+  
+    .advertisementOne_footer {
+      padding: 8px 15px;
+    }
+  }
+
+
+/* For screens with a width between 768px and 1024px (tablet devices) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .advertisementOne_main {
+      height: 40vh;
+      width: 30vw;
+      margin: 5px 12px ;
+    }
+  
+    .advertisementOne_header {
+      font-size: 20px;
+    }
+  
+    .advertisementOne_body {
+      padding: 10px;
+    }
+  
+    .advertisementOne_footer {
+      padding: 8px 15px;
+    }
+  }
+  

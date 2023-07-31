@@ -1,0 +1,84 @@
+.advertisementFour_main{
+    height: 55vh;
+    width: 22.5vw;
+    background-color: white;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: auto;
+   cursor: pointer;
+}
+ .advertisementFour_header{
+     font-size: 21px;
+     line-height: 27px;
+     font-weight: bold;
+     padding: 15px;
+ }
+ .advertisementFour_body{
+     display: flex;
+     flex-wrap: wrap;
+ }
+ .advertisementFour_footer{
+     padding: 12px 15px;
+ }
+ .addFour_image{
+    margin: 5%;
+    width: 40%;
+ }
+  
+  /* For screens with a width of 768 pixels or less (mobile devices) */
+  @media (max-width: 768px) {
+    .advertisementFour_main {
+      height: auto;
+      width: 100%;
+      margin: 5px 0;
+      grid-template-columns: 1fr;
+    }
+  
+    .advertisementFour_header {
+      font-size: 18px;
+    }
+  
+    .advertisementFour_body {
+      padding: 5px;
+      justify-content: space-between;
+    }
+  
+    .addFour_image {
+      margin: 2.5%;
+      width: 45%;
+    }
+  
+    .advertisementFour_footer {
+      padding: 8px 15px;
+    }
+  }
+  
+  /*===============================================================*/
+  /* advertisementFour.css */
+
+/* For screens with a width between 768px and 1024px (tablet devices) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .advertisementFour_main {
+      height: 40vh;
+      width: 30vw;
+      margin: 5px 12px ;
+    }
+  
+    .advertisementFour_header {
+      font-size: 20px;
+    }
+  
+    .advertisementFour_body {
+      justify-content: center;
+    }
+  
+    .addFour_image {
+      margin: 2%;
+      width: 45%;
+    }
+  
+    .advertisementFour_footer {
+      padding: 8px 15px;
+    }
+  }
+  

@@ -1,0 +1,112 @@
+.rightSide_main{
+    height: 100%;
+    /* width: 90%; */
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    margin: 1%;
+}
+.product_image{
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    background-color: #f7f7f7;
+}
+.product_main{
+    border: 1px solid #f7f7f7 ;
+    width: 20vw;
+    height: 60vh;
+    margin: 0.5%;
+    cursor: pointer;
+}
+.product_name{
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 400;
+    padding:  2%;
+}
+.product_rating{
+    font-size: 14px;
+    color: #007185;
+    padding: 0px 2%;
+}
+.product_price{
+    font-size: 24px;
+    font-weight: 600;
+    padding: 2%;
+    /* color: #B12784; */
+}
+.product_rate{
+    display: flex;
+    align-items: center;
+    padding: 0px 1%;
+}
+.product_delivery{
+    padding: 0px 2%;
+    font-size: 14px;
+}
+.product_prime{
+    margin-right: 2%;
+    color: #41a9d9;
+    font-weight: bold;
+}
+
+/* For screens with a width of 768 pixels or less (mobile devices) */
+@media (max-width: 768px) {
+  .rightSide_main {
+    /* Adjust the layout to make products stack in a single column */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+  }
+
+  .product_main {
+    /* Adjust the width and margin for mobile devices to show 2 products */
+    width: 100%;
+    margin: 2% 0;
+    height: 100%;
+  }
+
+  .product_image {
+    padding: 5%;
+  }
+
+  .product_name {
+    font-size: 16px; /* Adjust font size for mobile devices */
+  }
+
+  .product_rate {
+    padding: 0px 1%;
+  }
+
+  .product_price {
+    font-size: 20px; /* Adjust font size for mobile devices */
+    padding: 1% 2%;
+  }
+
+  .product_delivery {
+    padding: 0px 2%;
+    font-size: 14px; /* Adjust font size for mobile devices */
+  }
+}
+
+/* For screens with a width between 768px and 1024px (tablet devices) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .rightSide_main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+  }
+
+  .product_main {
+    width: 45%; /* Adjust the width for tablet devices to show 2 products in a row */
+    margin: 1%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,8 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    ::selection {
+        color: #ffa41b; /* Text color when selected */
+      }
+}
