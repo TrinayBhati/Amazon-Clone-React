@@ -1,6 +1,6 @@
 import React from "react";
 import RightSidePanel from "../rightSide/RightSidePanel";
-import LeftSidePanel from "../leftSide/LeftSIdePanel";
+import LeftSidePanel from "../leftSide/LeftSidePanel";
 
 const DisplayContent = () => {
   return (
