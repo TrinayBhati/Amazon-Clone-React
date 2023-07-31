@@ -67,11 +67,11 @@ const Navigation = () => {
           <div className="navbar_locatorImage"></div>
          <select className="navbar_location">
             <option>Delhi</option>
-            <option>Mumbai</option>
+            <option>NCR</option>
             <option>Noida</option>
             <option>Goa</option>
-            <option>Chennai</option>
-            <option>Kanpur</option>
+            <option>Ambala</option>
+            <option>Bihar</option>
           </select>
         </div>
         <Search />
