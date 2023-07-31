@@ -26,6 +26,11 @@
     color: white;
     font-weight: bold;
     margin-left: 5px;
+    background-color:#131921 ;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    width: 70px;
 }
 .navbar_locatorImage{
     background: url('https://ik.imagekit.io/amazonzlone15/amazon-image/sprite_350x.png?updatedAt=1689420715250') no-repeat -70px -305px;
