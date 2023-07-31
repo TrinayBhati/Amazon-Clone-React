@@ -91,3 +91,39 @@ p{
     height: 50px;
     font-weight: bold;
 }
+
+@media (max-width: 600px) {
+    .box_container {
+        width: 300px;
+        height: 300px;
+        font-size: 12px;
+    }
+
+    .box_container img {
+        height: 150px;
+        width: 100px;
+        width: 90%;
+    }
+
+    .box_container button {
+        font-size: 14px;
+        width: 50%;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    .box_container img {
+        height: 250px;
+        width: 200px;
+        width: 90%;
+    }
+
+    .box_container {
+        height: 400px;
+        width: 500px;
+    }
+
+    .box_container button {
+        font-size: 25px;
+    }
+}
