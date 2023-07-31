@@ -65,7 +65,14 @@ const Navigation = () => {
         <div className="navbar_logo" onClick={homeCLick}></div>
         <div className="navbar_locator">
           <div className="navbar_locatorImage"></div>
-          <div className="navbar_location">Delhi</div>
+         <select className="navbar_location">
+            <option>Delhi</option>
+            <option>Mumbai</option>
+            <option>Noida</option>
+            <option>Goa</option>
+            <option>Chennai</option>
+            <option>Kanpur</option>
+          </select>
         </div>
         <Search />
         <div className="navbar_language">
