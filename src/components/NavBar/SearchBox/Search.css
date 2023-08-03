@@ -6,7 +6,7 @@
 
 .searchBox {
     width: 45vw;
-    height: 5vh;
+    height: 5.5vh;
     font-size: medium;
     padding: 2%;
     cursor:pointer;
@@ -23,7 +23,7 @@
 .searchbox-div {
     background-color: #FEBE68;
     /* height: 44px; */
-    height: 5vh;
+    height: 5.5vh;
     width: 48px;
     border-radius: 0px 5px 5px 0px;
     display: flex;
@@ -40,7 +40,7 @@
 
 .dropdown {
     /* height: 44px; */
-    height: 5vh;
+    height: 5.5vh;
     width: 3.7vw;
     /* margin-top: 10px; */
     background-color: #e6e5e5;
