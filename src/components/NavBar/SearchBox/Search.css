@@ -96,7 +96,7 @@
 
     .searchIcon {
         width: 20px;
-        height: 23px;
+        height: 5vh;
         margin: 10px;
         cursor: pointer;
     }
@@ -147,7 +147,7 @@
 
     .searchIcon {
         width: 80px;
-        height: 25px;
+        height: 5vh;
         margin: 10px;
         cursor: pointer;
     }
