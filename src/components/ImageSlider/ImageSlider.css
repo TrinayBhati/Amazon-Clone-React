@@ -36,7 +36,7 @@
   }
 
   .slide {
-    height: 40vh;
+    height: 50vh;
   }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -50,7 +50,7 @@
   }
 
   .slide {
-    height: 45vh;
+    height: 55vh;
   }
 }
 
