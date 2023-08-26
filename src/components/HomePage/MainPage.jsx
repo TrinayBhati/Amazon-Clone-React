@@ -86,13 +86,7 @@ const MainPage = () => {
       <ImageSlider />
       {/* <div style={{ paddingTop: "35vh", display: "flex", flexWrap: "wrap" }}> */}
       <div
-        style={{
-          position: "relative",
-          top: "-475px",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
+       className="mainPageDiv"
       >
         {/* <Link to={"/display-content"}> */}
         <AdvertisementOne singleContent={singleContent[0]} />
