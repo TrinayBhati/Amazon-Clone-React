@@ -7,8 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const Navigation = () => {
   const [phone, setPhone] = useState(false);
-  const { item, size, increment, searchProducts, log } =
-    useContext(CartContext);
+  const { size, log } = useContext(CartContext);
 
   const staticData = [
     {
@@ -53,6 +52,9 @@ const Navigation = () => {
   const signInClick = () => {
     navigate("/login");
   };
+  const onFeedbackClick = () => {
+    navigate("/user-feedback");
+  };
   const onNavFooterClick = (e) => {
     const value = e.target.getAttribute("value");
     // console.log(value);
@@ -65,13 +67,13 @@ const Navigation = () => {
         <div className="navbar_logo" onClick={homeCLick}></div>
         <div className="navbar_locator">
           <div className="navbar_locatorImage"></div>
-         <select className="navbar_location">
+          <select className="navbar_location">
             <option>Delhi</option>
-            <option>NCR</option>
+            <option>Mumbai</option>
             <option>Noida</option>
             <option>Goa</option>
-            <option>Ambala</option>
-            <option>Bihar</option>
+            <option>Chennai</option>
+            <option>Kanpur</option>
           </select>
         </div>
         <Search />
@@ -91,9 +93,9 @@ const Navigation = () => {
           </div>
           <div style={{ fontWeight: "bold" }}>Account & Lists</div>
         </div>
-        <div className="navbar_text navbar_returns">
-          <div style={{ fontSize: "14px" }}>Returns</div>
-          <div style={{ fontWeight: "bold" }}>& Order</div>{" "}
+        <div className="navbar_text navbar_returns" onClick={onFeedbackClick}>
+          <div style={{ fontSize: "14px" }}>Feedback</div>
+          <div style={{ fontWeight: "bold" }}>& Comment</div>{" "}
         </div>
         <div className="navbar_text navbar_cart" onClick={cardClick}>
           <div className="cart_image"></div>
@@ -192,17 +194,7 @@ const Navigation = () => {
       </div>
       {/* ================================================== */}
       {phone && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            height: "140px",
-            width: "auto",
-            backgroundColor: "#131921",
-            color: "white",
-            zIndex: "0",
-          }}
-        >
+        <div className="mobileMainDiv">
           <div className="navbar_language2">
             <img src="https://ik.imagekit.io/amazonzlone15/amazon-image/Flag_of_India.png?updatedAt=1689664336929" />
             <select className="navbar_language_select2">
@@ -219,9 +211,12 @@ const Navigation = () => {
             </div>
             <div style={{ fontWeight: "bold" }}>Account & Lists</div>
           </div>
-          <div className="navbar_text navbar_returns2">
-            <div style={{ fontSize: "14px" }}>Returns</div>
-            <div style={{ fontWeight: "bold" }}>& Order</div>{" "}
+          <div
+            className="navbar_text navbar_returns2"
+            onClick={onFeedbackClick}
+          >
+            <div style={{ fontSize: "14px" }}>Feedback</div>
+            <div style={{ fontWeight: "bold" }}>& Comment</div>{" "}
           </div>
           <div className="navbar_text navbar_cart2" onClick={cardClick}>
             <div className="cart_image2"></div>
