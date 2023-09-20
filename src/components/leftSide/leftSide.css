@@ -1,67 +1,80 @@
 .leftSide_main{
-    height: 100%;
-    /* width: 300px; */
-    width: 15vw;
-    border-right: 1px solid;
-    padding: 15% 10%;
-    /* padding: 40px; */
+  height: 100%;
+  /* width: 300px; */
+  width: 15vw;
+  border-right: 1px solid;
+  padding: 15% 10%;
+  /* padding: 40px; */
 }
 .leftSide_header{
-    font-weight: bold;
-    margin: 15px 0px;
-    width: 200px;
+  font-weight: bold;
+  margin: 15px 0px;
+  width: 200px;
 }
 
 .brandName{
-    display: block;
-    padding: 2px;
-    cursor: pointer;
+  display: block;
+  padding: 2px;
+  cursor: pointer;
 }
-
-  /* leftSide.css */
+.hamburger{
+display: none;
+}
+/* leftSide.css */
 
 
 /* For screens with a width of 768 pixels or less (mobile devices) */
 @media (max-width: 768px) {
-  .leftSide_main {
-    width: 100%;
-    padding: 5%;
-  }
+.leftSide_main {
+  width: 100%;
+  padding: 5%;
+  border-right: 0px ;
+}
 
-  .leftSide_header {
-    font-size: 14px; /* Adjust font size for mobile devices */
-    margin: 10px 0px;
-    width: 95%;
-  }
 
-  .starRatingMobile{
-    font-size: 14px !important;
-  }
+.laptopDiv{
+  display: none;
+}
 
-  .brandName {
-    width: 100%;
-    padding: 2px;
-    cursor: pointer;
-    font-size: 14px; /* Adjust font size for mobile devices */
-  }
+.leftSide_header {
+  font-size: 14px; /* Adjust font size for mobile devices */
+  margin: 10px 0px;
+  width: 95%;
+}
+
+.starRatingMobile{
+  font-size: 14px !important;
+}
+
+.brandName {
+  width: 100%;
+  padding: 2px;
+  cursor: pointer;
+  font-size: 14px; /* Adjust font size for mobile devices */
+}
 }
 
 /* For screens with a width between 768px and 1024px (tablet devices) */
 @media (min-width: 768px) and (max-width: 1024px) {
-  .leftSide_main {
-    width: 90%; /* Adjust the width for tablet devices */
-    padding: 10px;
-  }
+.leftSide_main {
+  width: 90%; /* Adjust the width for tablet devices */
+  padding: 10px;
+  border-right: 0px ;
 
-  .leftSide_header {
-    font-size: 16px; /* Adjust font size for tablet devices */
-    margin: 15px 0px;
-  }
+}
+.laptopDiv{
+  display: none;
+}
 
-  .brandName {
-    width: 100%;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
+.leftSide_header {
+  font-size: 16px; /* Adjust font size for tablet devices */
+  margin: 15px 0px;
+}
+
+.brandName {
+  width: 100%;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
 }

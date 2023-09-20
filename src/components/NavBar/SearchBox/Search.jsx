@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Search.css";
 import { CartContext } from "../../../CartContext";
 import { useNavigate } from "react-router-dom";
-import {List, ListItem } from "@mui/material";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -24,22 +23,18 @@ const Search = () => {
 
   const onInputChange = (e) => {
     setType(e.target.value);
-    // searchProducts(element, type);
+    searchProducts(element, type);
   };
-  const onClickChange = (product) => {
-    navigate(`/place-order/${product.id}`);
-    setType("");
-    // searchProducts(element, type);
-  };
-  const onIconClick = ()=>{
+  const onClickChange = () => {
     navigate("/display-content");
-
-  }
+    searchProducts(element, type);
+    // console.log(type);
+  };
 
   return (
     <div className="search-component">
       <div className="dropdown-div">
-        <select className="dropdown" >
+        <select className="dropdown">
           <option value="All">All</option>
           <option value="Alexa">Alexa</option>
           <option value="Books">Books</option>
@@ -48,7 +43,6 @@ const Search = () => {
           <option value="Clothes">Clothes</option>
         </select>
       </div>
-
       <div>
         <input
           type="search"
@@ -56,26 +50,11 @@ const Search = () => {
           className="searchBox"
           value={type}
           onChange={onInputChange}
-          // onClick={onClickChange}
+          onClick={onClickChange}
         />
-        {type && (
-          <List className="listy">
-            {element
-              .filter((product) => product.title.toLowerCase().includes(type))
-              .map((product) => (
-                <ListItem
-                  key={product.id}
-                  onClick={() => onClickChange(product)}
-                >
-                  <div>{product.title}</div>
-                </ListItem>
-              ))}
-          </List>
-        )}
       </div>
-
       <div className="searchbox-div">
-        <div className="searchIcon" onClick={onIconClick}></div>
+        <div className="searchIcon" onClick={onClickChange}></div>
       </div>
     </div>
   );

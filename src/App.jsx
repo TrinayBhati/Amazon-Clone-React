@@ -10,6 +10,7 @@ import SignUp from "./components/logInPage/SignUp";
 import AddressInfo from "./components/addressInfo/AddressInfo";
 import Layout from "./Layout";
 import StaticPage from "./components/staticPages/StaticPage";
+import UserFeedback from "./components/userFeedback/UserFeedback";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="login" element={<LogIn />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="address-info" element={<AddressInfo />} />
+            <Route path="user-feedback" element={<UserFeedback />} />
             <Route
               path="static-pages"
               element={

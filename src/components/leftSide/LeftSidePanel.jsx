@@ -2,13 +2,14 @@ import React, { useEffect, useState, useContext } from "react";
 import "./leftSide.css";
 import { CartContext } from "../../CartContext";
 import Stack from "@mui/material/Stack";
-
+import MenuIcon from "@mui/icons-material/Menu";
 import Rating from "@mui/material/Rating";
 
 const LeftSidePanel = () => {
   const { filterProducts, searchProducts } = useContext(CartContext);
   const [element, setElement] = useState([]);
   const [error, setError] = useState("");
+  const [phone, setPhone] = useState(false);
 
   useEffect(() => {
     (async function () {
@@ -61,48 +62,103 @@ const LeftSidePanel = () => {
 
   return (
     <div className="leftSide_main">
-      <div className="leftSide_header">Category</div>
-      <div className="leftSide_brandName">
-        <div onClick={boxClick}>
-          <label className="brandName" onClick={allClick}>
-            <input type="radio" name="options" value="All" />
-            All
-          </label>
-        </div>
-        {categoryData.map((elem) => {
-          return (
-            <div onClick={boxClick}>
-              <label className="brandName">
-                <input type="radio" name="options" value={elem} />
-                {elem}
-              </label>
-            </div>
-          );
-        })}
-        <div className="leftSide_header">Avg. Customer Review</div>
-        <div>
-          {uniqueNumber.map((elem) => {
+      <div className="hamburger">
+        <MenuIcon
+          onClick={() => {
+            setPhone(!phone);
+          }}
+        />
+      </div>
+      <div className="laptopDiv">
+        <div className="leftSide_header">Category</div>
+        <div className="leftSide_brandName">
+          <div onClick={boxClick}>
+            <label className="brandName" onClick={allClick}>
+              <input type="radio" name="options" value="All" />
+              All
+            </label>
+          </div>
+          {categoryData.map((elem) => {
             return (
-              <Stack
-                spacing={1}
-                onClick={() => {
-                  starClick(elem);
-                }}
-                className="brandName"
-              >
-                <Rating
-                  name="half-rating"
-                  defaultValue={elem}
-                  readOnly
-                  key={elem}
-                  className="starRatingMobile"
-                  sx={{ fontSize: "20px" }}
-                />
-              </Stack>
+              <div onClick={boxClick}>
+                <label className="brandName">
+                  <input type="radio" name="options" value={elem} />
+                  {elem}
+                </label>
+              </div>
             );
           })}
+          <div className="leftSide_header">Avg. Customer Review</div>
+          <div>
+            {uniqueNumber.map((elem) => {
+              return (
+                <Stack
+                  spacing={1}
+                  onClick={() => {
+                    starClick(elem);
+                  }}
+                  className="brandName"
+                >
+                  <Rating
+                    name="half-rating"
+                    defaultValue={elem}
+                    readOnly
+                    key={elem}
+                    className="starRatingMobile"
+                    sx={{ fontSize: "20px" }}
+                  />
+                </Stack>
+              );
+            })}
+          </div>
         </div>
       </div>
+      {phone && (
+        <div className="phoneDiv">
+          <div className="leftSide_header">Category</div>
+          <div className="leftSide_brandName">
+            <div onClick={boxClick}>
+              <label className="brandName" onClick={allClick}>
+                <input type="radio" name="options" value="All" />
+                All
+              </label>
+            </div>
+            {categoryData.map((elem) => {
+              return (
+                <div onClick={boxClick}>
+                  <label className="brandName">
+                    <input type="radio" name="options" value={elem} />
+                    {elem}
+                  </label>
+                </div>
+              );
+            })}
+            <div className="leftSide_header">Avg. Customer Review</div>
+            <div>
+              {uniqueNumber.map((elem) => {
+                return (
+                  <Stack
+                    spacing={1}
+                    onClick={() => {
+                      starClick(elem);
+                    }}
+                    className="brandName"
+                  >
+                    <Rating
+                      name="half-rating"
+                      defaultValue={elem}
+                      readOnly
+                      key={elem}
+                      className="starRatingMobile"
+                      sx={{ fontSize: "20px" }}
+                    />
+                  </Stack>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

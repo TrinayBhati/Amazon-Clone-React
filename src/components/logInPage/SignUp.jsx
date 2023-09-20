@@ -3,9 +3,8 @@ import "./login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { CartContext } from "../../CartContext";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../FireBase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../FireBase";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -13,11 +12,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
+import { updateProfile } from "firebase/auth";
 
 const SignUp = () => {
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth();
-
   const { setLog } = useContext(CartContext);
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -33,16 +30,28 @@ const SignUp = () => {
     setOpen(false);
   };
 
-  const register = (e) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
-        if (auth) {
-          setLog(auth);
-          setOpen(true);
-          // navigate("/");
-        }
-      })
-      .catch((error) => alert(error.message));
+  const register = async (e) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log(name, "displayName");
+      await updateProfile(auth.currentUser, { displayName: name });
+
+      setOpen(true);
+      navigate("/");
+
+      // console.log(displayName);
+    } catch (error) {
+      console.log("Error signing up: ", error);
+    }
+
+    // signUpWithEmailAndPassword(email, password, name)
+    //   .then((user) => {
+    //     console.log(user);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
   return (
     <div className="login">
@@ -57,8 +66,7 @@ const SignUp = () => {
         <h1>Create Account</h1>
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            register();
+            register(e);
           }}
         >
           <h5>Your name</h5>

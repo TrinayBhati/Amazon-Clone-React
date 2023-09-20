@@ -1,13 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./NavBar.css";
 import Search from "./SearchBox/Search";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../CartContext";
 import MenuIcon from "@mui/icons-material/Menu";
+import { auth } from "../../FireBase";
 
 const Navigation = () => {
   const [phone, setPhone] = useState(false);
   const { size, log } = useContext(CartContext);
+  const [name, setName] = useState("");
+
+  // const user = auth.currentUser;
+
+  useEffect(() => {
+    if (auth?.currentUser?.displayName != undefined) {
+      setName(auth?.currentUser?.displayName);
+    }
+  }, [auth?.currentUser?.displayName]);
+  console.log("user", auth?.currentUser?.displayName);
 
   const staticData = [
     {
@@ -87,8 +98,8 @@ const Navigation = () => {
         </div>
         <div className="navbar_text navbar_signin">
           <div style={{ fontSize: "14px" }} onClick={signInClick}>
-            {log?._tokenResponse?.email
-              ? `Hello ${log?._tokenResponse?.email}`
+            {auth?.currentUser?.displayName
+              ? `Hello ${name}`
               : "Hello, Sign In"}
           </div>
           <div style={{ fontWeight: "bold" }}>Account & Lists</div>

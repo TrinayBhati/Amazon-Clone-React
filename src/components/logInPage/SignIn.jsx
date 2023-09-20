@@ -2,13 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../FireBase";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+
 import { CartContext } from "../../CartContext";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -17,20 +11,29 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
+// import { signInWithEmailAndPassword } from "../../FireBase";
 
 const LogIn = () => {
   const { setLog } = useContext(CartContext);
   const navigate = useNavigate();
-  const app = initializeApp(firebaseConfig);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = getAuth();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    // listenToAuthChanges((authUser) => {
+    //   if (authUser) {
+    //     setUser(authUser);
+    //   } else {
+    //     setUser(null);
+    //   }
+    // });
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -38,18 +41,14 @@ const LogIn = () => {
 
   const signIn = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
-        console.log(auth);
-        if (auth) {
-          setLog(auth);
-          // When the condition is met, open the modal
-          setOpen(true);
-
-          // navigate("/");
-        }
-      })
-      .catch((error) => alert(error.message));
+    // signInWithEmailAndPasswords(email, password)
+    //   .then((userCredential) => {
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   const register = (e) => {

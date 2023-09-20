@@ -13,6 +13,7 @@
     justify-content: center;
     margin-top: 0px;
     position: relative;
+    cursor: pointer;
     /* top: 14px; */
 }
 .footer_middle{

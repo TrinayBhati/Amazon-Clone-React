@@ -3,10 +3,13 @@ import "./Footer.css";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const backToTop = () => {
+    scrollTo(0, 0);
+  };
   return (
     <div className="footer_body">
       <div className="footer_top">
-        <h3>Back to top</h3>
+        <h3 onClick={backToTop}>Back to top</h3>
       </div>
       <div className="footer_middle">
         <div className="footer_middle_1">

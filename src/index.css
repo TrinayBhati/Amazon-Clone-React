@@ -1,8 +1,10 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    ::selection {
-        color: #ffa41b;
-      }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+
+  ::selection {
+    color: #ffa41b ;
+  }
+
 }
