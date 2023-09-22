@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import "./checkout.css";
 import { CartContext } from "../../CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutItems = ({ product }) => {
   // console.log(product);
   const { decrement, quantityItem, qty, qtyId } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const onDeleteItem = (value) => {
     decrement(value);
@@ -92,7 +94,14 @@ const CheckOutItems = ({ product }) => {
               Delete
             </button>
             <span style={{ marginLeft: "10px" }}>|</span>
-            <button className="checkout_buttons">See more like this</button>
+            <button
+              className="checkout_buttons"
+              onClick={() => {
+                navigate("/display-content");
+              }}
+            >
+              See more like this
+            </button>
           </div>
         </div>
       </div>
