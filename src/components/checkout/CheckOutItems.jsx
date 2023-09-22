@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const CheckOutItems = ({ product }) => {
   // console.log(product);
-  const { decrement, quantityItem, qty, qtyId } = useContext(CartContext);
+  const { decrement, quantityItem, qty, qtyId , user} = useContext(CartContext);
   const navigate = useNavigate();
 
   const onDeleteItem = (value) => {

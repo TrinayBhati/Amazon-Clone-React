@@ -15,17 +15,8 @@ import Box from "@mui/material/Box";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const {
-    item,
-    size,
-    increment,
-    price,
-    setPrice,
-    quantityItem,
-    qty,
-    qtyId,
-    log,
-  } = useContext(CartContext);
+  const { item, size, price, setPrice, qty, qtyId, user } =
+    useContext(CartContext);
 
   const [open, setOpen] = useState(false);
 
@@ -60,7 +51,7 @@ const Checkout = () => {
 
   const onProceedClick = () => {
     if (size !== 0) {
-      if (log?._tokenResponse?.email) {
+      if (user) {
         navigate("/address-info");
       } else {
         setOpen(true);
