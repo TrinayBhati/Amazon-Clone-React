@@ -5,11 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../CartContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import { auth } from "../../FireBase";
+import Box from "@mui/material/Box";
+import Popper from "@mui/material/Popper";
 
 const Navigation = () => {
   const [phone, setPhone] = useState(false);
-  const { size, log } = useContext(CartContext);
+  const { item, size, increment, log, user, setUser } = useContext(CartContext);
   const [name, setName] = useState("");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popper" : undefined;
 
   // const user = auth.currentUser;
 
@@ -18,7 +29,7 @@ const Navigation = () => {
       setName(auth?.currentUser?.displayName);
     }
   }, [auth?.currentUser?.displayName]);
-  console.log("user", auth?.currentUser?.displayName);
+  // console.log("user", auth?.currentUser?.displayName);
 
   const staticData = [
     {
@@ -72,6 +83,19 @@ const Navigation = () => {
     navigate("/static-pages", { state: staticData[value] });
   };
   // console.log(log?._tokenResponse?.email);
+  const handleLogout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setUser(null);
+        // console.log("User logged out successfully!");
+        // Clearing user data from the global state by setting user to null
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
   return (
     <>
       <div className="navbar_component ">
@@ -97,13 +121,31 @@ const Navigation = () => {
           </select>
         </div>
         <div className="navbar_text navbar_signin">
-          <div style={{ fontSize: "14px" }} onClick={signInClick}>
-            {auth?.currentUser?.displayName
-              ? `Hello ${name}`
-              : "Hello, Sign In"}
-          </div>
-          <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+          {user ? (
+            <div onClick={handleClick}>
+              <div style={{ fontSize: "14px" }}>Hello, {user.name}</div>
+              <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+            </div>
+          ) : (
+            <div onClick={signInClick}>
+              <div style={{ fontSize: "14px" }}>Hello, Sign In</div>
+              <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+            </div>
+          )}
+
+          <Popper
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            style={{ zIndex: "2" }}
+            onClick={handleLogout}
+          >
+            <Box sx={{ p: 1 }} className="navbar_logoutButton">
+              Logout
+            </Box>
+          </Popper>
         </div>
+
         <div className="navbar_text navbar_returns" onClick={onFeedbackClick}>
           <div style={{ fontSize: "14px" }}>Feedback</div>
           <div style={{ fontWeight: "bold" }}>& Comment</div>{" "}
@@ -113,6 +155,7 @@ const Navigation = () => {
           <div className="cart_item">{size}</div>
           <div className="navbar_text_cart">Cart</div>
         </div>
+
         <div className="hamburger">
           <MenuIcon
             onClick={() => {
@@ -215,12 +258,17 @@ const Navigation = () => {
             </select>
           </div>
           <div className="navbar_text navbar_signin2">
-            <div style={{ fontSize: "14px" }} onClick={signInClick}>
-              {log?._tokenResponse?.email
-                ? `Hello ${log?._tokenResponse?.email}`
-                : "Hello, Sign In"}
-            </div>
-            <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+            {user ? (
+              <div onClick={handleClick}>
+                <div style={{ fontSize: "14px" }}>Hello, {user.name}</div>
+                <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+              </div>
+            ) : (
+              <div onClick={signInClick}>
+                <div style={{ fontSize: "14px" }}>Hello, Sign In</div>
+                <div style={{ fontWeight: "bold" }}>Account & Lists</div>
+              </div>
+            )}
           </div>
           <div
             className="navbar_text navbar_returns2"

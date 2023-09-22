@@ -1,5 +1,4 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import firebase from "firebase";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBkjwd5E-miNBCPTrXErBypLQcwfyBtDPQ",
@@ -11,6 +10,11 @@ const firebaseConfig = {
   measurementId: "G-JJ3L0G1K9N",
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export default app;
+const whatsApp = firebase.initializeApp(firebaseConfig);
+
+const db = whatsApp.firestore();
+
+const auth = firebase.auth();
+
+export default db;
+export { auth };

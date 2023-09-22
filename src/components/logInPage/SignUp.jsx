@@ -1,58 +1,59 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { CartContext } from "../../CartContext";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../FireBase";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-import { updateProfile } from "firebase/auth";
+import db from "../../FireBase";
+import { auth } from "../../FireBase";
 
 const SignUp = () => {
-  const { setLog } = useContext(CartContext);
   const navigate = useNavigate();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const register = async (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log(name, "displayName");
-      await updateProfile(auth.currentUser, { displayName: name });
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        db.collection("users")
+          .doc(user.uid)
+          .set({
+            name: name,
+            email: email,
+          })
+          .then(() => {
+            // Handle successful signup
 
-      setOpen(true);
-      navigate("/");
-
-      // console.log(displayName);
-    } catch (error) {
-      console.log("Error signing up: ", error);
-    }
-
-    // signUpWithEmailAndPassword(email, password, name)
-    //   .then((user) => {
-    //     console.log(user);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+            console.log("User signed up successfully!");
+            setOpen(true);
+          })
+          .catch((error) => {
+            // Handle Firestore save error
+            console.error("Error saving user data to Firestore:", error);
+            // You may want to delete the created user from Firebase Authentication here to maintain consistency between Auth and Firestore.
+            user.delete().catch((deleteError) => {
+              console.error("Error deleting user:", deleteError);
+            });
+            alert("Error: " + error);
+          });
+      })
+      .catch((error) => {
+        // Handle signup error
+        console.error("Error creating user:", error);
+        alert("Error: " + error.message);
+      });
   };
+
   return (
     <div className="login">
       <Link to="/">
@@ -61,24 +62,19 @@ const SignUp = () => {
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/603px-Amazon_logo.svg.png?20220213013322"
         />
       </Link>
-
       <div className="login_container">
         <h1>Create Account</h1>
-        <form
-          onSubmit={(e) => {
-            register(e);
-          }}
-        >
+        <form>
           <h5>Your name</h5>
           <input
             type="text"
             className="text_color"
             placeholder="First and last name"
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
-          <h5>E-mail</h5>
+          <h5>Email</h5>
           <input
             type="text"
             className="text_color"
@@ -93,52 +89,53 @@ const SignUp = () => {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            minLength={6}
           />
           <p style={{ fontSize: "14px", marginTop: "-5px" }}>
             <i>Passwords must be at least 6 characters.</i>
           </p>
-          <button className="login_signinbutton" type="submit">
+          <button
+            type="submit"
+            className="login_signinbutton"
+            onClick={handleSignup}
+          >
             Continue
           </button>
+          <div>
+            {/* <Button variant="outlined" onClick={handleOpen}>
+            Open Dialog
+          </Button> */}
+            <Dialog open={open} onClose={handleClose}>
+              <Box component="span" sx={{ p: 2 }} className="box_container">
+                <img
+                  src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/02-lottie-tick-01-instant-2.gif"
+                  height="250"
+                />
+                <h1>Account Created Successfully!</h1>
+                <br />
+                <br />
+                <button
+                  className="login_signinbutton"
+                  onClick={() => {
+                    handleClose();
+                    navigate("/");
+                  }}
+                  autoFocus
+                >
+                  Continue to Amazon
+                </button>
+              </Box>
+            </Dialog>
+          </div>
         </form>
 
         <p>
-          Already have an account? <Link to="/login">Sign in</Link>
+          {/* Already have an account? <Link to="/log-In">Sign in</Link> */}
         </p>
         <p>
-          By creating an account or logging in, you agree to Amazon’s Conditions
+          By creating an account or logging in, you agree to Amazon's Conditions
           of Use and Privacy Policy.
         </p>
-        <div>
-          {/* <Button variant="outlined" onClick={handleOpen}>
-            Open Dialog
-          </Button> */}
-          <Dialog open={open} onClose={handleClose}>
-            <Box
-              component="span"
-              sx={{
-                p: 2,
-              }}
-              className="box_container"
-            >
-              <img src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/02-lottie-tick-01-instant-2.gif" />
-              <h1>Account Created successfully</h1>
-              <br />
-              <br />
-              <button
-                className="login_signinbutton"
-                onClick={() => {
-                  handleClose();
-                  navigate("/");
-                }}
-                autoFocus
-                sx={{ fontSize: "30px" }}
-              >
-                Continue to Amazon
-              </button>
-            </Box>
-          </Dialog>
-        </div>
       </div>
     </div>
   );

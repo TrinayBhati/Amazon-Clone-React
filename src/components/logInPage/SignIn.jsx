@@ -1,57 +1,45 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-
 import { CartContext } from "../../CartContext";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-// import { signInWithEmailAndPassword } from "../../FireBase";
+import { auth } from "../../FireBase";
 
 const LogIn = () => {
   const { setLog } = useContext(CartContext);
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  useEffect(() => {
-    // listenToAuthChanges((authUser) => {
-    //   if (authUser) {
-    //     setUser(authUser);
-    //   } else {
-    //     setUser(null);
-    //   }
-    // });
-  }, []);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const signIn = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    // signInWithEmailAndPasswords(email, password)
-    //   .then((userCredential) => {
-    //     const user = userCredential.user;
-    //     console.log(user);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    setError("");
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setOpen(true);
+        console.log("User logged in successfully!");
+      })
+      .catch((error) => {
+        setError("Invalid email or password. Please try again."); // Display login error
+        alert("Error logging in");
+      });
   };
 
-  const register = (e) => {
+  const register = () => {
     navigate("/signup");
   };
 
@@ -82,7 +70,11 @@ const LogIn = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" className="login_signinbutton" onClick={signIn}>
+          <button
+            type="submit"
+            className="login_signinbutton"
+            onClick={handleLogin}
+          >
             Sign In
           </button>
         </form>
@@ -93,18 +85,12 @@ const LogIn = () => {
           Create your Amazon account
         </button>
         <div>
-          {/* <Button variant="outlined" onClick={handleOpen}>
-            Open Dialog
-          </Button> */}
           <Dialog open={open} onClose={handleClose}>
-            <Box
-              component="span"
-              sx={{
-                p: 2,
-              }}
-              className="box_container"
-            >
-              <img src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/02-lottie-tick-01-instant-2.gif" />
+            <Box component="span" sx={{ p: 2 }} className="box_container">
+              <img
+                src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/02-lottie-tick-01-instant-2.gif"
+                height="250"
+              />
               <h1>Logged In successfully</h1>
               <br />
               <br />
@@ -115,7 +101,6 @@ const LogIn = () => {
                   navigate("/");
                 }}
                 autoFocus
-                sx={{ fontSize: "30px" }}
               >
                 Continue to Amazon
               </button>
