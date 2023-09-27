@@ -4,13 +4,11 @@ import { createContext } from "react";
 export const CartContext = createContext();
 
 const CartContextProvider = (props) => {
-  const existingCart =
-    localStorage.getItem("myCart") != undefined
-      ? JSON.parse(localStorage.getItem("myCart"))
-      : [];
-  const cardAmount = existingCart.length;
+  const existingCart = JSON.parse(localStorage.getItem("myCart")) || [];
+  const existingQtyInfo = JSON.parse(localStorage.getItem("qtyInfo")) || [];
+
   const [item, setItem] = useState(existingCart);
-  const [size, setSize] = useState(cardAmount);
+  const [size, setSize] = useState(existingCart.length);
   const [result, setResult] = useState([]);
   const [searchFilter, setSearchFilter] = useState([]);
   const [price, setPrice] = useState(0);
@@ -19,41 +17,48 @@ const CartContextProvider = (props) => {
   const [qty, setQty] = useState(1);
   const [qtyId, setQtyId] = useState(0);
   const [user, setUser] = useState("");
+  const [qtyInfo, setQtyInfo] = useState(existingQtyInfo);
 
   const increment = (value) => {
-    // console.log("value", value);
-
-    // setItem((prevItem) => {
-    //   if (existingCart == []) {
-    //     return value;
-    //   }
-    //   return [...prevItem, value];
-    // });
     setItem((prevItem) => [...prevItem, value]);
-    // setSize(item.length + 1);
-    // console.log(item);
   };
+
   useEffect(() => {
     saveToLocalStorage();
     setSize(item.length);
   }, [item]);
-  // console.log("item", item);
+
   const saveToLocalStorage = () => {
     localStorage.setItem("myCart", JSON.stringify(item));
   };
 
-  const decrement = (value) => {
-    // const index = item.find(value);
-    // console.log(index);
-    // const removed = item.splice(index, 1);
+  useEffect(() => {
+    localStorage.setItem("myCart", JSON.stringify(item));
+    localStorage.setItem("qtyInfo", JSON.stringify(qtyInfo));
+  }, [item, qtyInfo]);
 
+  const quantityItem = (productId, number) => {
+    setQtyInfo((prevQtyInfo) => {
+      const updatedQtyInfo = [...prevQtyInfo];
+      const itemIndex = updatedQtyInfo.findIndex(
+        (info) => info.id === productId
+      );
+
+      if (itemIndex !== -1) {
+        updatedQtyInfo[itemIndex].qty = number;
+      } else {
+        updatedQtyInfo.push({ id: productId, qty: number });
+      }
+
+      return updatedQtyInfo;
+    });
+  };
+
+  const decrement = (value) => {
     const removed = item.filter(function (elem) {
       return elem !== value;
     });
 
-    // console.log("value", value);
-    // console.log("items", item);
-    // console.log("removed", removed);
     setItem(removed);
   };
 
@@ -64,7 +69,6 @@ const CartContextProvider = (props) => {
         : Math.floor(input[field][field2]) === value;
     });
     setResult(filteredProducts);
-    // console.log("rating", result);
   };
 
   const searchProducts = (arr, value) => {
@@ -75,14 +79,6 @@ const CartContextProvider = (props) => {
       );
     });
     setSearchFilter(searchArr);
-    // console.log(searchFilter);
-  };
-
-  const quantityItem = (product, number) => {
-    // console.log("product", product);
-    // console.log("number", number);
-    setQty(number);
-    setQtyId(product);
   };
 
   return (
@@ -104,6 +100,9 @@ const CartContextProvider = (props) => {
           quantityItem,
           qty,
           qtyId,
+          qtyInfo,
+          setItem,
+          setQtyInfo,
           user,
           setUser,
         }}

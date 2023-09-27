@@ -21,6 +21,9 @@
     background-color: #FFD712;
     cursor:pointer;
 }
+.placeorder__button:hover{
+  background-color: #ffa41b;
+}
 .checkout_dropdown{
     height: 30px;
     width: 75px;
@@ -48,6 +51,14 @@
 .proceedToBuyBox{
   width: 300px;
   height: 200px;
+  margin-top: 25px;
+  background-color: white;
+   padding: 30px;
+}
+.proceedToBuyBox{
+  flex:wrap;
+  width: 300px;
+  height: 250px;
   margin-top: 25px;
   background-color: white;
    padding: 30px;

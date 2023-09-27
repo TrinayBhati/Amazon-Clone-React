@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { auth } from "../../FireBase";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
+import Dialog from "@mui/material/Dialog";
 
 const Navigation = () => {
   const [phone, setPhone] = useState(false);
@@ -14,6 +15,15 @@ const Navigation = () => {
   const [name, setName] = useState("");
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [oppen, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -88,6 +98,8 @@ const Navigation = () => {
       .signOut()
       .then(() => {
         setUser(null);
+        setOpen(true);
+
         // console.log("User logged out successfully!");
         // Clearing user data from the global state by setting user to null
       })
@@ -123,7 +135,7 @@ const Navigation = () => {
         <div className="navbar_text navbar_signin">
           {user ? (
             <div onClick={handleClick}>
-              <div style={{ fontSize: "14px" }}>Hello, {user.name}</div>
+              <div style={{ fontSize: "14px" }}>Hello, {user?.name}</div>
               <div style={{ fontWeight: "bold" }}>Account & Lists</div>
             </div>
           ) : (
@@ -284,6 +296,36 @@ const Navigation = () => {
           </div>
         </div>
       )}
+      <div>
+        {/* <Button variant="outlined" onClick={handleOpen}>
+            Open Dialog
+          </Button> */}
+        <Dialog open={oppen} onClose={handleClose}>
+          <Box
+            component="span"
+            sx={{
+              p: 2,
+            }}
+            className="box_container"
+          >
+            <img src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/02-lottie-tick-01-instant-2.gif" />
+            <h1>Logged out successfully</h1>
+            <br />
+            <br />
+            <button
+              className="login_signinbutton"
+              onClick={() => {
+                handleClose();
+                navigate("/");
+              }}
+              autoFocus
+              sx={{ fontSize: "30px" }}
+            >
+              Continue to Amazon
+            </button>
+          </Box>
+        </Dialog>
+      </div>
     </>
   );
 };

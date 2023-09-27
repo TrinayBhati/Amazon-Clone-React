@@ -15,8 +15,21 @@ import Box from "@mui/material/Box";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { item, size, price, setPrice, qty, qtyId, user } =
-    useContext(CartContext);
+  const {
+    item,
+    size,
+    increment,
+    price,
+    setPrice,
+    qty,
+    qtyId,
+    log,
+    setItem,
+    qtyInfo,
+    quantityItem,
+    user,
+    setQtyInfo,
+  } = useContext(CartContext);
 
   const [open, setOpen] = useState(false);
 
@@ -31,17 +44,19 @@ const Checkout = () => {
   const cartValue = () => {
     let total = 0;
     for (let i = 0; i < item.length; i++) {
-      for (let j = 1; j < qty; j++) {
-        if (parseFloat(item[i].id) == qtyId) {
-          total += parseFloat(item[i].price);
-        }
-      }
-      total += parseFloat(item[i].price);
+      const itemQtyInfo = qtyInfo.find((info) => info.id === item[i].id);
+
+      const quantity = itemQtyInfo ? itemQtyInfo.qty : 1;
+      total += parseFloat(item[i].price) * quantity;
     }
-    setPrice(total);
-    // localStorage.setItem("setPrice", JSON.stringify(total));
-    return price;
+    setPrice(total.toFixed(2));
+    return total.toFixed(2);
   };
+
+  useEffect(() => {
+    const storedQtyInfo = JSON.parse(localStorage.getItem("qtyInfo")) || [];
+    setQtyInfo(storedQtyInfo);
+  }, [setQtyInfo]);
 
   // console.log("total", price);
   // console.log("id", qtyId);
@@ -59,6 +74,10 @@ const Checkout = () => {
     } else {
       return;
     }
+  };
+
+  const onDeleteAllClick = () => {
+    setItem([]);
   };
   return (
     <div className="body">
@@ -91,11 +110,21 @@ const Checkout = () => {
         <Grid item={2}>
           <div className="proceedToBuyBox">
             <div style={{ fontSize: "26px", textAlign: "initial" }}>
-              Subtotal ({size} items):
-              <strong style={{ margin: "10px" }}>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                {" "}
+                Subtotal - {size} items
+              </span>
+              <span
+                style={{
+                  marginTop: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 {/* {localStorage.getItem("setPrice")} */}
-                {cartValue()}
-              </strong>
+                <span style={{ fontSize: "medium" }}>Total Amount - </span>
+                <strong style={{ marginLeft: "5px" }}>₹ {cartValue()}</strong>
+              </span>
             </div>
             <div style={{ paddingTop: "25px" }}>
               {/* <Link to="/address-info"> */}
@@ -103,6 +132,9 @@ const Checkout = () => {
                 Proceed to Buy
               </button>
               {/* </Link> */}
+              <button className="placeorder__button" onClick={onDeleteAllClick}>
+                Clear All
+              </button>
             </div>
           </div>
         </Grid>

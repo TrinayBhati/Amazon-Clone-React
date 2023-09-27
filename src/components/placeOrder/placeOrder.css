@@ -29,12 +29,21 @@
     color: black;
     cursor: pointer;
 }
-.addtocart{
+.addtocart {
     margin-top: 30px;
     background-color: #ffd712;
 }
+
+.addtocart:hover {
+    background-color: #ffa41b;
+}
+
 .buynow{
     background-color: #ffa41b;
+}
+.buynow:hover{
+  background-color: #ffd712;
+
 }
 .placeorder_icons{
     display: flex;

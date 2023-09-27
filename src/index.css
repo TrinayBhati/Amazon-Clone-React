@@ -4,7 +4,7 @@
   font-family: Arial, Helvetica, sans-serif;
 
   ::selection {
-    color: #ffa41b ;
+    background-color: #ffa41b ;
   }
 
 }

@@ -1,22 +1,27 @@
 import React, { useContext } from "react";
 import "./checkout.css";
 import { CartContext } from "../../CartContext";
-import { useNavigate } from "react-router-dom";
 
 const CheckOutItems = ({ product }) => {
-  // console.log(product);
-  const { decrement, quantityItem, qty, qtyId , user} = useContext(CartContext);
-  const navigate = useNavigate();
+  const { decrement, qtyId, quantityItem, qtyInfo } = useContext(CartContext);
+
+  // const onDeleteItem = (value) => {
+  //   decrement(value);
+  // };
+
+  const itemQtyInfo = qtyInfo.find((info) => info.id === product.id);
+
+  const qty = itemQtyInfo ? itemQtyInfo.qty : 1;
 
   const onDeleteItem = (value) => {
     decrement(value);
   };
+
   const onSelectClick = (e) => {
-    const number = e.target.value;
-    quantityItem(product.id, number);
+    const selectedQuantity = parseInt(e.target.value);
+    quantityItem(product.id, selectedQuantity);
   };
-  console.log(product);
-  // const uniqueProduct = new Set(product);
+
   return (
     <div>
       <div
@@ -65,24 +70,26 @@ const CheckOutItems = ({ product }) => {
             <p style={{ fontSize: "12px", color: "gray" }}>Amazon Delivered</p>
           </div>
           <div style={{ fontSize: "12px" }} className="textgap delivery_item">
-            Eligible for <b>FREE</b> Shipping
+            Eligible for <b style={{ margin: "0 4px 0 4px" }}>FREE</b> Shipping
           </div>
 
           <div className="textgap dropdown_items" style={{ marginTop: "10px" }}>
             <select
               placeholder="Qty."
               className="checkout_dropdown"
-              onClick={onSelectClick}
+              onChange={onSelectClick}
+              value={qty}
             >
-              <option>Qty : 1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
+              <option value={1}>Qty : 1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+              <option value={8}>8</option>
+              <option value={9}>9</option>
+              <option value={10}>10</option>
             </select>
             <span style={{ marginLeft: "15px" }}>|</span>
             <button
@@ -94,14 +101,7 @@ const CheckOutItems = ({ product }) => {
               Delete
             </button>
             <span style={{ marginLeft: "10px" }}>|</span>
-            <button
-              className="checkout_buttons"
-              onClick={() => {
-                navigate("/display-content");
-              }}
-            >
-              See more like this
-            </button>
+            <button className="checkout_buttons">See more like this</button>
           </div>
         </div>
       </div>
