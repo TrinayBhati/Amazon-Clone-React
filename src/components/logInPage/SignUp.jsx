@@ -102,6 +102,9 @@ const SignUp = () => {
           </button>
         </form>
         <p>
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+        <p>
           By creating an account or logging in, you agree to Amazon's Conditions
           of Use and Privacy Policy.
         </p>
